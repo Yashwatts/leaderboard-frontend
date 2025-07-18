@@ -17,6 +17,8 @@ import {
 import { Trophy, Plus, History, TrendingUp, Crown, Medal, Star, Gift, Zap, Sparkles } from "lucide-react"
 import { toast } from "sonner"
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
 interface User {
   id: string
   name: string
@@ -57,7 +59,7 @@ export default function LeaderboardApp() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/users")
+      const response = await fetch(`${API_URL}/api/users`)
       const data = await response.json()
       const rankedUsers = data
       .sort((a: any, b: any) => b.totalPoints - a.totalPoints)
@@ -78,7 +80,7 @@ export default function LeaderboardApp() {
 
   const fetchHistory = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/claim/history")
+      const response = await fetch(`${API_URL}/api/claim/history`)
       const data = await response.json()
       const mappedData = data.map((item: any) => ({
       id: item._id,
@@ -106,7 +108,7 @@ export default function LeaderboardApp() {
 
     setIsLoading(true)
     try {
-      const response = await fetch("http://localhost:5000/api/claim", {
+      const response = await fetch(`${API_URL}/api/claim`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -147,7 +149,7 @@ export default function LeaderboardApp() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/users", {
+      const response = await fetch(`${API_URL}/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
